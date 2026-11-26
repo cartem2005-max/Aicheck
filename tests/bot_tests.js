@@ -22,6 +22,15 @@ module.exports = async function run(check) {
   check('бот: /help — справка со всеми командами', ['/start', '/subscribe', '/unsubscribe', '/stats', '/allow', '/disallow', '/help', 't.me/канал/123'].every((c) => B.HELP.includes(c)));
   check('бот: /subscribe и /unsubscribe', B.route(upd('/subscribe'), sd, NOW).route === 'subscribe' && B.route(upd('/unsubscribe'), sd, NOW).route === 'unsubscribe');
   check('бот: неизвестная команда → справка', /Не знаю/.test(B.route(upd('/foo'), sd, NOW).reply));
+  // копия владельцу: коротко кто, что и ответ бота; свои сообщения владельца не дублируем
+  const fromU = (text, id) => ({ message: { message_id: 9, chat: { id }, from: { id, first_name: 'Иван', username: 'ivan_x' }, text } });
+  const ot = B.ownerTurn(fromU('/start', 77), B.route(fromU('/start', 77), {}, NOW));
+  check('копия владельцу: /start от чужого — имя, ник, id, что написал и что ответил бот', /Иван \(@ivan_x, id 77\)/.test(ot) && /Написал: \/start/.test(ot) && /Бот: приветствие/.test(ot), ot);
+  check('копия владельцу: сообщения самого владельца не дублируются', B.ownerTurn(fromU('/start', 42), B.route(fromU('/start', 42), {}, NOW)) === null);
+  check('копия владельцу: разбор текста не шлём на этапе приёма (придёт отдельной сводкой)', B.ownerTurn(fromU(LONG, 77), B.route(fromU(LONG, 77), {}, NOW)) === null);
+  const oaHtml = ['<b>Итог</b>', 'Местами похоже на текст нейросети.', '', '<b>Общее впечатление</b>', 'Claude прочитал текст целиком и оценил его на <b>41 из 100</b>.', '', '<b>Проверка по списку</b>', 'Из 50 приёмов в тексте нашлось 2.', '1. «Сегодня в сервисе»', 'Повтор.', '2. «раздел акций»', 'Канцелярит.', '', '<b>Предлагаю заменить 1 место</b>'].join(NL);
+  const oa = B.ownerAnalysis(fromU(LONG, 77), { text: LONG }, oaHtml);
+  check('копия владельцу: разбор — длина текста, итог, оценка, число приёмов и замен, первые места', /Прислал текст \(\d+ знаков\)/.test(oa) && /Бот: Местами похоже на текст нейросети\. Оценка 41\. Приёмов 2, замен предложил 1, сам исправил 0\./.test(oa) && /1\. «Сегодня в сервисе» Повтор/.test(oa), oa);
   // 26.11: текст с заголовками приходит как rich_message без поля text
   const rich = B.route({ message: { message_id: 6, chat: { id: 43 }, rich_message: { blocks: [{ type: 'heading', text: 'Заголовок', size: 2 }, { type: 'paragraph', text: LONG }, { type: 'paragraph', text: '' }] } } }, {}, NOW);
   check('бот: rich_message с заголовками разбирается как текст', rich.route === 'analyze' && rich.text.startsWith('Заголовок' + NL + NL + 'Сегодня'), JSON.stringify(rich).slice(0, 120));

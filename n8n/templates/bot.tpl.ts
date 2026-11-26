@@ -734,6 +734,67 @@ const composeMessage = node({
   output: [{ chat_id: '42', progress_id: 6, html: '<b>Есть признаки</b>', has_buttons: false, clean_parts: [] }],
 });
 
+// копия владельцу в личный бот «телеграм помощник» (как Owner copy в боте спецтехники); ошибка отправки ответ пользователю не ломает
+const OWNER_CHAT = 'YOUR_CHAT_ID';
+const ownerTurnBuild = node({
+  type: 'n8n-nodes-base.code',
+  version: 2,
+  config: {
+    name: 'Копия владельцу: ход',
+    onError: 'continueRegularOutput',
+    parameters: { mode: 'runOnceForAllItems', language: 'javaScript', jsCode: __JS_OWNER_TURN__ },
+    position: [720, 560],
+  },
+  output: [{ text: '👤 Иван (id 7)\nНаписал: /start\nБот: приветствие' }],
+});
+const ownerTurnSend = node({
+  type: 'n8n-nodes-base.telegram',
+  version: 1.2,
+  config: {
+    name: 'Копия владельцу: ход, отправить',
+    onError: 'continueRegularOutput',
+    parameters: {
+      resource: 'message',
+      operation: 'sendMessage',
+      chatId: OWNER_CHAT,
+      text: expr('{{ $json.text }}'),
+      additionalFields: { parse_mode: 'HTML', appendAttribution: false, disable_web_page_preview: true },
+    },
+    credentials: { telegramApi: { id: 'jpkxVF11SEp69qit', name: 'телеграм помощник' } },
+    position: [960, 560],
+  },
+  output: [{ ok: true }],
+});
+const ownerAnalysisBuild = node({
+  type: 'n8n-nodes-base.code',
+  version: 2,
+  config: {
+    name: 'Копия владельцу: разбор',
+    onError: 'continueRegularOutput',
+    parameters: { mode: 'runOnceForAllItems', language: 'javaScript', jsCode: __JS_OWNER_ANALYSIS__ },
+    position: [3840, 560],
+  },
+  output: [{ text: '👤 Иван (id 7)\nПрислал текст (600 знаков): …\nБот: Местами похоже на текст нейросети. Оценка 41.' }],
+});
+const ownerAnalysisSend = node({
+  type: 'n8n-nodes-base.telegram',
+  version: 1.2,
+  config: {
+    name: 'Копия владельцу: разбор, отправить',
+    onError: 'continueRegularOutput',
+    parameters: {
+      resource: 'message',
+      operation: 'sendMessage',
+      chatId: OWNER_CHAT,
+      text: expr('{{ $json.text }}'),
+      additionalFields: { parse_mode: 'HTML', appendAttribution: false, disable_web_page_preview: true },
+    },
+    credentials: { telegramApi: { id: 'jpkxVF11SEp69qit', name: 'телеграм помощник' } },
+    position: [4080, 560],
+  },
+  output: [{ ok: true }],
+});
+
 const hasButtons = switchCase({
   version: 3.2,
   config: {
@@ -969,6 +1030,10 @@ export default workflow('kan-bot', 'КАН: проверка текста на �
       .onCase(7, answerApply.to(applyParts).to(applyHasButtons.onCase(0, sendApplied1).onCase(1, sendApplied2).onCase(2, sendApplied3).onCase(3, sendApplied4).onCase(4, sendApplied5).onCase(5, sendApplied6).onCase(6, sendApplied)))
       .onCase(8, replyNow),
   )
+  .add(parseAndLimits)
+  .to(ownerTurnBuild.to(ownerTurnSend))
+  .add(composeMessage)
+  .to(ownerAnalysisBuild.to(ownerAnalysisSend))
   .add(composeMessage)
   .to(hasButtons.onCase(0, editWithButtons1).onCase(1, editWithButtons2).onCase(2, editWithButtons3).onCase(3, editWithButtons4).onCase(4, editWithButtons5).onCase(5, editWithButtons6).onCase(6, editPlain))
   .add(editWithButtons1)

@@ -853,7 +853,59 @@ function digest(reqItems, responses, sd, nowMs) {
   return { html, posts: order.length, failed: failed.length, last_post_id: sd.lastPostId };
 }
 
+// ---------- копия владельцу (как «Owner copy» в боте спецтехники) ----------
+// Владелец получает в личный бот коротко: кто написал, что прислал и что ответил бот. Свои сообщения владельца не дублируем.
+const OWNER_CUT = 300;
+const oneLine = (s, n) => { const t = String(s || '').replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : t; };
+const plainOf = (html) => String(html || '').replace(/<br\s*\/?>/g, '\n').replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+function ownerWho(u) {
+  const f = (u && ((u.message && u.message.from) || (u.callback_query && u.callback_query.from))) || {};
+  const name = [f.first_name, f.last_name].filter(Boolean).join(' ') || 'без имени';
+  return { id: f.id, head: `👤 ${name} (${f.username ? '@' + f.username + ', ' : ''}id ${f.id})` };
+}
+const BTN = (data) => data === 'example' ? '«Проверить пример»' : /^fix:/.test(data) ? `«Применить правку ${String(data).split(':')[1] || ''}»` : `«${data}»`;
+// ход без разбора: команды, отказы, нажатия кнопок. Разбор текста шлёт ownerAnalysis после сборки ответа.
+function ownerTurn(u, r) {
+  const w = ownerWho(u);
+  if (w.id === undefined || isOwner(w.id) || !r) return null;
+  if (r.route === 'analyze' || r.route === 'fetch' || r.route === 'example') return null;
+  const m = (u && u.message) || {};
+  const cq = u && u.callback_query;
+  const client = cq ? 'нажал ' + BTN(cq.data) : oneLine(m.text || m.caption || (m.rich_message ? richText(m.rich_message) : '') || '[без текста]', OWNER_CUT);
+  const bot = r.route === 'start' ? 'приветствие с кнопкой примера' : r.route === 'subscribe' ? 'подписал на сводку' : r.route === 'unsubscribe' ? 'отписал от сводки'
+    : r.route === 'apply' ? 'прислал текст с правкой' : r.reply ? oneLine(plainOf(r.reply), 200) : r.toast ? oneLine(r.toast, 120) : r.route;
+  return esc(`${w.head}\nНаписал: ${client}\nБот: ${bot}`);
+}
+// после разбора: что прислал, итог, оценка, сколько приёмов и правок, первые три места
+function ownerAnalysis(u, it, html) {
+  const w = ownerWho(u);
+  if (w.id === undefined || isOwner(w.id)) return null;
+  const m = (u && u.message) || {};
+  const text = String((it && it.text) || '');
+  const src = u && u.callback_query ? 'нажал «Проверить пример»' : it && it.source_url ? 'ссылку ' + it.source_url : 'текст';
+  const p = plainOf(html);
+  const verdict = (p.match(/Итог\n([^\n]+)/) || [])[1] || '';
+  const score = (p.match(/оценил его на (\d+) из 100/) || [])[1];
+  const found = (p.match(/Из 50 приёмов в тексте нашлось (\d+)/) || [])[1] || (/Ни одного приёма/.test(p) ? '0' : '?');
+  const sugg = (p.match(/Предлагаю заменить (\d+)/) || [])[1] || '0';
+  const auto = (p.match(/Исправил сам (\d+)/) || [])[1] || '0';
+  const chk = (p.split('Проверка по списку')[1] || '').split('\n\n')[0];
+  const cl = chk.split('\n');
+  const top = [];
+  cl.forEach((l, i) => { if (/^\d+\. /.test(l) && top.length < 3) { const why = cl[i + 1] && !/^\d+\. /.test(cl[i + 1]) ? ' ' + oneLine(cl[i + 1], 60) : ''; top.push(oneLine(l, 110) + why); } });
+  const lines = [
+    w.head,
+    `Прислал ${src} (${text.length} знаков): ${oneLine(text, OWNER_CUT) || oneLine(m.text, OWNER_CUT)}`,
+    `Бот: ${verdict}${score ? ` Оценка ${score}.` : ''} Приёмов ${found}, замен предложил ${sugg}, сам исправил ${auto}.`,
+    ...top,
+  ];
+  let out = esc(lines.join('\n'));
+  if (out.length > 4000) out = out.slice(0, 3990).replace(/&[a-z#0-9]*$/i, '') + '…';
+  return out;
+}
+
 module.exports = {
+  ownerTurn, ownerAnalysis,
   CFG, MIN_CHARS, MAX_CHARS, DAILY_LIMIT, USER_DAILY, DAY_USD_CAP, MONTH_USD_CAP, ZONE_MID, ZONE_HIGH, LABELS, DISCLAIMER, AUTO_LIST, START, HELP, DETECTOR_SYSTEM, DETECTOR_USER,
   esc, richText, postTitle, obviousPatterns, withCode, entitiesToHtml, linksFromEntities, cleanHtml, splitHtml, route, admit, parseEmbed, fromLink, detectorRequest, detectorRequests, parseScore, zoneOf, meanZone, scoreStep, finalZone, distinctSigns,
   recordUsage, spent, statsHtml, buildMessage, registerResult, cutEsc, marked, markedChanged, parsePosts, newPosts, dailyRequests, digest, mskDay,

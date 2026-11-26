@@ -115,6 +115,20 @@ const sd = $getWorkflowStaticData('global');
 const m = bot.buildMessage(it);
 if (m.has_buttons) bot.registerResult(sd, String(it.chat_id), String(it.progress_id), Date.now(), m.payload);
 return [{ json: { chat_id: it.chat_id, progress_id: it.progress_id, html: m.html, has_buttons: m.has_buttons, btn_n: m.btn_n, clean_parts: m.clean_parts, pre_note: m.pre_note || '' } }];` },
+  OWNER_TURN: { mods: ['bot_core'], glue: `
+// копия владельцу: ход без разбора (команды, отказы, кнопки); разбор текста — отдельной нодой после сборки ответа
+const bot = __req('bot_core');
+const u = ${GET_REQS('Сообщение или кнопка в Telegram')}.first().json;
+const t = bot.ownerTurn(u, $input.first().json);
+return t ? [{ json: { text: t } }] : [];` },
+  OWNER_ANALYSIS: { mods: ['bot_core'], glue: `
+// копия владельцу: что прислали и что ответил бот (итог, оценка, приёмы, правки)
+const bot = __req('bot_core');
+const u = ${GET_REQS('Сообщение или кнопка в Telegram')}.first().json;
+let it;
+try { it = ${GET_REQS('Текст из ссылки')}.first().json; if (it.route !== 'analyze') throw new Error('не ссылка'); } catch (e) { it = ${GET_REQS('Разбор и лимиты')}.first().json; }
+const t = bot.ownerAnalysis(u, it, $input.first().json.html);
+return t ? [{ json: { text: t } }] : [];` },
   CLEAN_PARTS: { mods: [], glue: `
 const m = ${GET_REQS('Собрать сообщение')}.first().json;
 return [...(m.pre_note && (m.clean_parts || []).length ? [m.pre_note] : []), ...(m.clean_parts || [])].map((p) => ({ json: { chat_id: m.chat_id, part: p } }));` },
