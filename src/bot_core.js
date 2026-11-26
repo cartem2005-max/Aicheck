@@ -94,6 +94,18 @@ function entitiesToHtml(text, entities) {
 }
 
 // ---------- кликабельные ссылки: защита от удаления и сохранение в чистовике ----------
+// rich_message Telegram (текст с заголовками, вставленный из редактора): блоки -> обычный текст, абзацы через пустую строку
+function richText(rm) {
+  const out = [];
+  const walk = (b) => {
+    if (!b || typeof b !== 'object') return;
+    if (typeof b.text === 'string' && b.text.trim()) out.push(b.type === 'list_item' ? '- ' + b.text.trim() : b.text.trim());
+    for (const k of ['blocks', 'items', 'children']) if (Array.isArray(b[k])) b[k].forEach(walk);
+  };
+  walk(rm);
+  return out.join('\n\n');
+}
+
 // entities Telegram (text_link — скрытая ссылка, url — видимая) -> [{start, end, url, text}] по тексту после очистки Markdown
 function linksFromEntities(raw, cleaned, entities) {
   const out = [];
@@ -272,7 +284,8 @@ function route(u, sd, nowMs) {
   const reply = (r, text) => ({ route: r, chat_id, reply: text });
   // текст или подпись к картинке/файлу; пересланные посты приходят так же
   const isText = typeof msg.text === 'string';
-  const body = isText ? msg.text : typeof msg.caption === 'string' ? msg.caption : null;
+  const rich = !isText && msg.rich_message ? richText(msg.rich_message) : '';
+  const body = isText ? msg.text : typeof msg.caption === 'string' ? msg.caption : rich || null;
   if (body === null) return reply('reply', 'Пришлите текст поста, перешлите пост или отправьте ссылку вида t.me/канал/123. В картинке или файле без подписи я текста не вижу.');
   const cmd = isText ? commandOf(msg.text) : null;
   const arg = body.trim().replace(/^\/\w+(?:@\w+)?\s*/, '').trim();
@@ -829,6 +842,6 @@ function digest(reqItems, responses, sd, nowMs) {
 
 module.exports = {
   CFG, MIN_CHARS, MAX_CHARS, DAILY_LIMIT, USER_DAILY, DAY_USD_CAP, MONTH_USD_CAP, ZONE_MID, ZONE_HIGH, LABELS, DISCLAIMER, AUTO_LIST, START, HELP, DETECTOR_SYSTEM, DETECTOR_USER,
-  esc, postTitle, obviousPatterns, withCode, entitiesToHtml, linksFromEntities, cleanHtml, splitHtml, route, admit, parseEmbed, fromLink, detectorRequest, detectorRequests, parseScore, zoneOf, meanZone, scoreStep, finalZone, distinctSigns,
+  esc, richText, postTitle, obviousPatterns, withCode, entitiesToHtml, linksFromEntities, cleanHtml, splitHtml, route, admit, parseEmbed, fromLink, detectorRequest, detectorRequests, parseScore, zoneOf, meanZone, scoreStep, finalZone, distinctSigns,
   recordUsage, spent, statsHtml, buildMessage, registerResult, cutEsc, marked, markedChanged, parsePosts, newPosts, dailyRequests, digest, mskDay,
 };

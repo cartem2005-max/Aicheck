@@ -22,6 +22,9 @@ module.exports = async function run(check) {
   check('бот: /help — справка со всеми командами', ['/start', '/subscribe', '/unsubscribe', '/stats', '/allow', '/disallow', '/help', 't.me/канал/123'].every((c) => B.HELP.includes(c)));
   check('бот: /subscribe и /unsubscribe', B.route(upd('/subscribe'), sd, NOW).route === 'subscribe' && B.route(upd('/unsubscribe'), sd, NOW).route === 'unsubscribe');
   check('бот: неизвестная команда → справка', /Не знаю/.test(B.route(upd('/foo'), sd, NOW).reply));
+  // 26.11: текст с заголовками приходит как rich_message без поля text
+  const rich = B.route({ message: { message_id: 6, chat: { id: 43 }, rich_message: { blocks: [{ type: 'heading', text: 'Заголовок', size: 2 }, { type: 'paragraph', text: LONG }, { type: 'paragraph', text: '' }] } } }, {}, NOW);
+  check('бот: rich_message с заголовками разбирается как текст', rich.route === 'analyze' && rich.text.startsWith('Заголовок' + NL + NL + 'Сегодня'), JSON.stringify(rich).slice(0, 120));
   check('бот: не текст → отказ', /Пришлите текст/.test(B.route({ message: { chat: { id: 1 }, photo: [] } }, sd, NOW).reply));
   check('F: короче 400 → «слишком короткий», без вызова модели, счётчики не растут', /Текст слишком короткий, нужно хотя бы 400 знаков/.test(B.route(upd('Коротко ' + 'а'.repeat(300)), sd, NOW).reply) && !sd.count && !sd.stats);
   check('F: длиннее 4000 → длина и предел', /слишком длинный, это 4001 знаков, а можно до 4000/.test(B.route(upd('а'.repeat(4001)), sd, NOW).reply));

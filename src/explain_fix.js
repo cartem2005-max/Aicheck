@@ -435,6 +435,9 @@ function exampleNearby(text, f) {
   if (i < 0) return false;
   return paras.slice(Math.max(0, i - 2), i + 3).some((x) => /\d|→|(?<![\p{L}])например(?![\p{L}])/iu.test(x.p.replace(/[0-9#*]\uFE0F?\u20E3/gu, '')));
 }
+// п.20 «осторожные оговорки» без самой оговорки и п.9 «мораль» на факте с датой — ошибки разбора (пост про ключи Ozon, 26.11)
+const HEDGE_MARK = /(?<![\p{L}])(?:стоит|имеет смысл|может|могут|можно|возможно|вероятно|пожалуй|скорее|по возможности|желательно|рекомендуе|в некотор|в какой-то|в целом|как правило|обычно|иногда|отчасти|в принципе|по сути|не всегда|не обязательно|при необходимости|если нужно|если потребуется|лучше|вроде|кажется|похоже|пока неясно|неясно|не факт|не исключ|под вопросом|гипотез|требу[а-я]* (?:отдельной )?провер)/iu;
+const MORAL_MARK = /(?<![\p{L}])(?:итог|главн|вывод|помни|запомн|важн|стоит|нужн|надо|не забыва|всегда|никогда|лучше|проще|просто|секрет|правило|чем кажется)/iu;
 function filterFinding(text, f) {
   if (f.sign === 47 && wordsOf(f.quote).length < 3) return 'ярлык «книжное слово» на цитате короче трёх слов';
   if (f.sign === 47 && quoteInQuotes(text, f)) return 'ярлык «книжное слово» на тексте в кавычках';
@@ -445,6 +448,8 @@ function filterFinding(text, f) {
   if ((f.sign === 32 || (f.sign === 3 && f.quote.length <= 70 && isWholeLine(text, f))) && f.start >= 0 && followedByInstruction(text, f.end)) return 'за вопросом идёт инструкция или список';
   if (!f.hint && serviceOnly(f)) return 'сводится к одному служебному слову';
   if (f.hint && (f.sign === 21 || f.sign === 22) && /\d/.test(f.quote)) return 'в цитате есть цифра';
+  if (f.sign === 20 && !HEDGE_MARK.test(norm(f.quote))) return 'нет слова-оговорки';
+  if (f.sign === 9 && /\d/.test(f.quote) && !MORAL_MARK.test(norm(f.quote))) return 'факт с числом или датой, а не мораль';
   return null;
 }
 
