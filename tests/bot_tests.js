@@ -27,7 +27,7 @@ module.exports = async function run(check) {
   check('бот: rich_message с заголовками разбирается как текст', rich.route === 'analyze' && rich.text.startsWith('Заголовок' + NL + NL + 'Сегодня'), JSON.stringify(rich).slice(0, 120));
   check('бот: не текст → отказ', /Пришлите текст/.test(B.route({ message: { chat: { id: 1 }, photo: [] } }, sd, NOW).reply));
   check('F: короче 400 → «слишком короткий», без вызова модели, счётчики не растут', /Текст слишком короткий, нужно хотя бы 400 знаков/.test(B.route(upd('Коротко ' + 'а'.repeat(300)), sd, NOW).reply) && !sd.count && !sd.stats);
-  check('F: длиннее 4000 → длина и предел', /слишком длинный, это 4001 знаков, а можно до 4000/.test(B.route(upd('а'.repeat(4001)), sd, NOW).reply));
+  check('F: длиннее 5000 → длина и предел', /слишком длинный, это 5001 знаков, а можно до 5000/.test(B.route(upd('а'.repeat(5001)), sd, NOW).reply));
   const a = B.route(upd(LONG), sd, NOW);
   check('бот: нормальный текст → analyze, счётчик 1', a.route === 'analyze' && a.chat_id === '42' && a.used_today === 1 && sd.count === 1);
   sd.count = 50;

@@ -221,8 +221,8 @@ const lkBad = run('FROM_LINK', { input: [{ error: { message: '404' } }], nodes: 
 check('F: закрытая/недоступная → «Перешлите пост сюда»', lkBad.route === 'reply' && /Перешлите пост сюда/.test(lkBad.reply));
 const shortIn = run('PARSE', { input: [{ message: { chat: { id: 5 }, text: 'Коротко ' + 'а'.repeat(300) } }], sd: {} })[0];
 check('F: < 400 знаков → «Текст слишком короткий» без вызова модели', shortIn.route === 'reply' && /Текст слишком короткий/.test(shortIn.reply));
-const longIn = run('PARSE', { input: [{ message: { chat: { id: 5 }, text: 'а'.repeat(4500) } }], sd: {} })[0];
-check('F: > 4000 → длина и предел', longIn.route === 'reply' && /слишком длинный, это 4500 знаков, а можно до 4000/.test(longIn.reply));
+const longIn = run('PARSE', { input: [{ message: { chat: { id: 5 }, text: 'а'.repeat(5500) } }], sd: {} })[0];
+check('F: > 5000 → длина и предел', longIn.route === 'reply' && /слишком длинный, это 5500 знаков, а можно до 5000/.test(longIn.reply));
 const startIn = run('PARSE', { input: [{ message: { chat: { id: 5 }, text: '/start' } }], sd: {} })[0];
 check('A: /start → приветствие с «Claude» и «Anthropic»', startIn.route === 'start' && /Claude/.test(startIn.reply) && /Anthropic/.test(startIn.reply));
 const exIn = run('PARSE', { input: [{ callback_query: { id: 'q', data: 'example', from: { id: 5 }, message: { message_id: 9, chat: { id: 5 }, text: 'Привет' } } }], sd: {} })[0];
