@@ -19,7 +19,7 @@ Telegram → n8n → правила в коде + Claude Sonnet 5.5 → пров
   - `prompts/signs_catalog.md` — сам список приёмов.
 - `n8n/templates/` — шаблоны воркфлоу. `n8n/build.js` вставляет модули из `src/` в Code-ноды и собирает `n8n/dist/*.json`.
 - `n8n/simulate.js` берёт код прямо из собранных нод и прогоняет его на тестовых данных. Так проверяется, что в n8n работает тот же код, что в тестах.
-- `eval/` — скрипты замеров. Итоги лежат в `eval/results/*.md`, главные из них `zones_bot.md`, `ext_detect.md` и `ru_llm.md`.
+- `eval/` — скрипты замеров. Итоги лежат в `eval/results/*.md`, главные из них `zones_bot.md`, `ext_detect.md`, `ru_llm.md` и `ru_llm_human.md` (GigaChat и Алиса).
 - `data/` — посты канала (публичные, с t.me/s/kultura_analitiki) и тексты нейросети на те же темы. Деление на dev и test лежит в `split.json`. Правила подбирались на dev, цифры в отчёте посчитаны на test.
 
 ## Запуск проверок
