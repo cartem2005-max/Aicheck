@@ -75,7 +75,11 @@ module.exports = async function run(check) {
 
   // детектор
   const rq = B.detectorRequests(LONG + ' @chan');
-  check('детектор: три запроса, промпт без подписи @…', rq.length === 3 && rq[0].req.model === 'claude-sonnet-5-5' && !rq[0].req.messages[0].content.includes('@chan') && rq[0].req.messages[0].content.includes('Оценка: N'));
+  check('детектор: пять запросов, промпт без подписи @…', rq.length === 5 && rq[0].req.model === 'claude-sonnet-5-5' && !rq[0].req.messages[0].content.includes('@chan') && rq[0].req.messages[0].content.includes('Оценка: N'));
+  const st1 = B.scoreStep([ans('40'), ans('45'), ans('50'), ans('90'), ans('10')]);
+  check('оценка: три близкие — среднее трёх, лишние два не учитываются', st1.mean === 45 && st1.scores.length === 3 && !st1.unstable, JSON.stringify(st1));
+  const st2 = B.scoreStep([ans('62'), ans('22'), ans('72'), ans('40'), ans('55')]);
+  check('оценка: разброс трёх >= 30 — медиана пяти и пометка', st2.mean === 55 && st2.unstable && st2.scores.length === 5, JSON.stringify(st2));
   check('детектор: разбор «Оценка: N»', B.parseScore(ans('Оценка: 72')) === 72 && B.parseScore(ans('55')) === 55 && B.parseScore({ error: { message: 'x' } }) === null && B.parseScore(ans('нет')) === null);
   check('зоны: границы 30 и 55', B.zoneOf(29.9) === 'low' && B.zoneOf(30) === 'mid' && B.zoneOf(54.9) === 'mid' && B.zoneOf(55) === 'high');
   let sc = B.scoreStep([ans('Оценка: 30'), ans('Оценка: 35'), ans('Оценка: 30')]);
@@ -190,7 +194,7 @@ module.exports = async function run(check) {
   const noPlace = B.buildMessage({ ...item, highlights: [], fix: E.apply(TEXT, { findings: [] }), layout: [] });
   check('B: разбор ничего не нашёл, но в тексте есть безопасное → «Исправил сам 1 место», блока «Предлагаю заменить» нет', /Исправил сам 1 место/.test(noPlace.html) && !/Предлагаю заменить/.test(noPlace.html) && !noPlace.has_buttons && noPlace.clean_parts.length === 1, noPlace.html.slice(0, 220));
   const quiet = B.buildMessage({ ...item, text: LONG, highlights: [], layout: [], fix: E.apply(LONG, { findings: [] }) });
-  check('B: ни находок, ни безопасных правок, оценка 73 → «Ни одного приёма из списка», «Исправлять самому было нечего», итог «видит шаблонность в целом», без кнопок и чистовика', /Исправлять самому было нечего/.test(quiet.html) && /Из 50 приёмов|Ни одного приёма из списка не нашлось/.test(quiet.html) && /Claude видит шаблонность в целом, но конкретных приёмов мало/.test(quiet.html) && !quiet.has_buttons && quiet.clean_parts.length === 0, quiet.html.slice(0, 420));
+  check('B: ни находок, ни безопасных правок, оценка 73 → «Ни одного приёма из списка», «Исправлять самому было нечего», итог «видит шаблонность в целом», без кнопок и чистовика', /Сам ничего не менял: безопасных автоправок/.test(quiet.html) && /Из 50 приёмов|Ни одного приёма из списка не нашлось/.test(quiet.html) && /Claude видит шаблонность в целом, но конкретных приёмов мало/.test(quiet.html) && !quiet.has_buttons && quiet.clean_parts.length === 0, quiet.html.slice(0, 420));
   const low = B.buildMessage({ ...item, ...B.scoreStep([ans('Оценка: 12'), ans('Оценка: 15'), ans('Оценка: 12')]), fix: undefined });
   const lowErr = B.buildMessage({ ...item, ...B.scoreStep([ans('Оценка: 12'), ans('Оценка: 15'), ans('Оценка: 12')]), fix_error: true, fix: undefined, tscore: undefined });
   check('сообщение: модель низко, проверка текста не удалась → «Подробно проверить текст не получилось», число на месте, итог про пару приёмов (код нашёл 2 шаблона), без кнопок', /Подробно проверить текст не получилось/.test(lowErr.html) && /оценил его на <b>13 из 100<[/]b>/.test(lowErr.html) && /<b>Итог<\/b>\nВ целом звучит живо, но пара приёмов есть/.test(lowErr.html) && !low.has_buttons && low.clean_parts.length === 0, lowErr.html.slice(0, 600));

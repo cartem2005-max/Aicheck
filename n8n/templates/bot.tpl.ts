@@ -564,7 +564,7 @@ const detectorRequests = node({
   type: 'n8n-nodes-base.code',
   version: 2,
   config: {
-    name: 'Три запроса детектору',
+    name: 'Пять запросов детектору',
     parameters: { mode: 'runOnceForAllItems', language: 'javaScript', jsCode: __JS_REQUESTS__ },
     position: [1200, 240],
   },

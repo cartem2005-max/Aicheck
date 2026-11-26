@@ -83,7 +83,7 @@ for (const [kind, raw] of TEXTS) {
 
   // 3. три запроса детектору
   const reqs = run('REQUESTS', { input: [linted] });
-  check(tag + 'три запроса = bot.detectorRequests, модель и промпт', reqs.length === 3 && same(reqs, B.detectorRequests(routed.text)) && reqs[0].req.model === 'claude-sonnet-5-5' && reqs[0].req.messages[0].content.includes('Оценка: N'));
+  check(tag + 'пять запросов = bot.detectorRequests, модель и промпт', reqs.length === 5 && same(reqs, B.detectorRequests(routed.text)) && reqs[0].req.model === 'claude-sonnet-5-5' && reqs[0].req.messages[0].content.includes('Оценка: N'));
 
   // 4. среднее и зона
   let mid = [ans('Оценка: 40', { input_tokens: 500, output_tokens: 10 }), ans('Оценка: 35', { input_tokens: 500, output_tokens: 10 }), ans('Оценка: 45', { input_tokens: 500, output_tokens: 10 })];

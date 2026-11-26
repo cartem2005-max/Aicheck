@@ -362,7 +362,7 @@ function detectorRequest(text) {
     messages: [{ role: 'user', content: DETECTOR_USER(text.replace(/\s*@\w+\s*$/, '').trim()) }],
   };
 }
-const detectorRequests = (text) => [0, 1, 2].map((i) => ({ i, req: detectorRequest(text) }));
+const detectorRequests = (text) => [0, 1, 2, 3, 4].map((i) => ({ i, req: detectorRequest(text) }));
 
 // ответ Anthropic (json HTTP-ноды) -> число 0..100 или null
 function parseScore(j) {
@@ -395,11 +395,23 @@ function finalZone(mean, findings, hasFix, signs) {
   return { zone, weak: false, label: LABELS[zone] };
 }
 // 0 ответов из 3 — «оценка модели недоступна»; 1–2 — считаем, но честно пишем «по N из 3 оценок»
+// Обычно берём среднее первых трёх. Если они разошлись на SPREAD_MAX и больше (на 108 тестовых текстах такого не было,
+// бывает на длинных статьях), берём медиану всех пяти: два лишних вызова стоят ~0,2 цента.
+const SPREAD_MAX = 30;
+const median = (a) => { const s = [...a].sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
 function scoreStep(responses) {
-  const scores = responses.map(parseScore).filter((x) => x !== null);
-  if (!scores.length) return { api_error: true, scores, n_scores: 0, partial: false, need_shorten: true };
-  const z = meanZone(scores);
-  return { api_error: false, scores, n_scores: scores.length, partial: scores.length < 3, ...z, need_shorten: true };
+  const parsed = responses.map(parseScore);
+  const first = parsed.slice(0, 3).filter((x) => x !== null);
+  const all = parsed.filter((x) => x !== null);
+  if (!all.length) return { api_error: true, scores: all, n_scores: 0, partial: false, need_shorten: true };
+  const spread = first.length ? Math.max(...first) - Math.min(...first) : 0;
+  if (first.length && spread < SPREAD_MAX) {
+    const z = meanZone(first);
+    return { api_error: false, scores: first, n_scores: first.length, partial: first.length < 3, ...z, need_shorten: true };
+  }
+  const mean = median(all);
+  const zone = zoneOf(mean);
+  return { api_error: false, scores: all, n_scores: all.length, partial: false, unstable: true, mean, zone, label: LABELS[zone], need_shorten: true };
 }
 
 // ---------- сообщение пользователю ----------
@@ -673,12 +685,12 @@ function compose(it, lv, dropPost) {
     if (typoLine) top.push(typoLine);
   }
   if (fx && !live) {
-    lines.push('\n' + (auto.length ? list(`<b>Исправил сам ${auto.length} ${plural(auto.length, 'место', 'места', 'мест')}</b>`, auto.map((e) => autoLine(it.text, e)), 8) : fx.auto_off ? 'Сам ничего не менял. Сам правлю только тексты с высоким числом, здесь только предлагаю.' : 'Исправлять самому было нечего.'));
+    lines.push('\n' + (auto.length ? list(`<b>Исправил сам ${auto.length} ${plural(auto.length, 'место', 'места', 'мест')}</b>`, auto.map((e) => autoLine(it.text, e)), 8) : fx.auto_off ? 'Сам ничего не менял. Сам правлю только тексты с высоким числом, здесь только предлагаю.' : 'Сам ничего не менял: безопасных автоправок в этом тексте нет. Места выше решать автору.'));
     if (sugg.length) lines.push('\n' + list(`<b>Предлагаю заменить ${sugg.length} ${plural(sugg.length, 'место', 'места', 'мест')}</b>`, sugg.map(suggLine), lv.find));
   }
   // 3) подробности — одним раскрывающимся блоком
   const sc = hasScore ? it.scores : [];
-  const scTxt = !sc.length ? '' : sc.length === 1 ? `Одна оценка ${sc[0]}, две другие не пришли.` : `${sc.length === 3 ? 'Три оценки' : 'Две оценки'} ${sc.slice(0, -1).join(', ')} и ${sc[sc.length - 1]}, среднее ${Math.round(it.mean)}.${sc.length < 3 ? ' Третья не пришла.' : ''}`;
+  const scTxt = !sc.length ? '' : it.unstable ? `Первые три оценки сильно разошлись, поэтому я учёл ещё две: ${sc.slice(0, -1).join(', ')} и ${sc[sc.length - 1]}. Взял середину, ${Math.round(it.mean)}. На таком тексте оценке стоит доверять меньше.` : sc.length === 1 ? `Одна оценка ${sc[0]}, две другие не пришли.` : `${sc.length === 3 ? 'Три оценки' : 'Две оценки'} ${sc.slice(0, -1).join(', ')} и ${sc[sc.length - 1]}, среднее ${Math.round(it.mean)}.${sc.length < 3 ? ' Третья не пришла.' : ''}`;
   det.push('<b>Подробности</b>' + (scTxt ? '\n' + scTxt : ''));
   // шаблонные причины: 2–3 формулировки по очереди, чтобы фраза не повторялась; «ничем не отличается» не показываем
   const VARS = [
