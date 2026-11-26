@@ -395,8 +395,8 @@ function finalZone(mean, findings, hasFix, signs) {
   return { zone, weak: false, label: LABELS[zone] };
 }
 // 0 ответов из 3 — «оценка модели недоступна»; 1–2 — считаем, но честно пишем «по N из 3 оценок»
-// Обычно берём среднее первых трёх. Если они разошлись на SPREAD_MAX и больше (на 108 тестовых текстах такого не было,
-// бывает на длинных статьях), берём медиану всех пяти: два лишних вызова стоят ~0,2 цента.
+// Обычно берём среднее первых трёх. Если они разошлись на SPREAD_MAX и больше (на 108 тестовых постах такого не было,
+// было на GigaChat и на длинной статье), берём медиану всех пяти: два лишних вызова стоят ~0,2 цента.
 const SPREAD_MAX = 30;
 const median = (a) => { const s = [...a].sort((x, y) => x - y); const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
 function scoreStep(responses) {
@@ -486,7 +486,7 @@ function typoCorrect(quote) {
 }
 const plural = (n, one, few, many) => (n % 10 === 1 && n % 100 !== 11 ? one : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? few : many);
 // обрезка по границе слова: «…» после целого слова, не посреди слова
-const clip = (s, n) => { if (s.length <= n) return s; let c = s.slice(0, n - 1); const i = c.lastIndexOf(' '); if (i >= n * 0.5) c = c.slice(0, i); return c.replace(/[s,.;:—-]+$/, '') + '…'; };
+const clip = (s, n) => { if (s.length <= n) return s; let c = s.slice(0, n - 1); const i = c.lastIndexOf(' '); if (i >= n * 0.5) c = c.slice(0, i); return c.replace(/[\s,.;:—-]+$/, '') + '…'; };
 const normQ = (s) => String(s).toLowerCase().replace(/ё/g, 'е').replace(/…$/, '').trim();
 // линтерная подсветка без дублей с находками модели: то же место (цитата входит одна в другую) не повторяем
 function dedupHighlights(highlights, findings) {
@@ -811,7 +811,7 @@ const CHANNEL = 'kultura_analitiki';
 // начало поста вместо номера: первая строка с текстом без эмодзи, до ~60 знаков по границе слова
 function postTitle(text) {
   const line = String(text || '').split('\n').map((l) => l.replace(/[\p{Extended_Pictographic}️‍⃣]/gu, '').replace(/\s+/g, ' ').trim()).find((l) => /[\p{L}\p{N}]/u.test(l)) || '';
-  if (line.length <= 60) return line;
+  if (line.length <= 60) return line.replace(/[.!?…:;,]+$/, '');
   let c = line.slice(0, 60); const i = c.lastIndexOf(' ');
   if (i >= 30) c = c.slice(0, i);
   return c.replace(/[\s,.;:—-]+$/, '') + '…';
