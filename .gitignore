@@ -1,0 +1,6 @@
+node_modules/
+*.log
+.env
+.llm-url
+n8n/dist/
+.DS_Store

@@ -1,0 +1,1839 @@
+{
+ "spent_usd": 0,
+ "table": {
+  "ai": {
+   "n": 72,
+   "low": 7,
+   "mid": 28,
+   "high": 37,
+   "unknown": 0
+  },
+  "ai_naive": {
+   "n": 36,
+   "low": 1,
+   "mid": 13,
+   "high": 22,
+   "unknown": 0
+  },
+  "ai_human": {
+   "n": 36,
+   "low": 6,
+   "mid": 15,
+   "high": 15,
+   "unknown": 0
+  },
+  "founder": {
+   "n": 13,
+   "low": 11,
+   "mid": 2,
+   "high": 0,
+   "unknown": 0
+  },
+  "editorial": {
+   "n": 19,
+   "low": 6,
+   "mid": 7,
+   "high": 6,
+   "unknown": 0
+  },
+  "unclear": {
+   "n": 4,
+   "low": 2,
+   "mid": 1,
+   "high": 1,
+   "unknown": 0
+  }
+ },
+ "one_call": {
+  "ai": {
+   "low": 8,
+   "mid": 21,
+   "high": 43
+  },
+  "ai_naive": {
+   "low": 1,
+   "mid": 10,
+   "high": 25
+  },
+  "ai_human": {
+   "low": 7,
+   "mid": 11,
+   "high": 18
+  },
+  "founder": {
+   "low": 10,
+   "mid": 3,
+   "high": 0
+  },
+  "editorial": {
+   "low": 4,
+   "mid": 9,
+   "high": 6
+  },
+  "unclear": {
+   "low": 1,
+   "mid": 2,
+   "high": 1
+  }
+ },
+ "stat": {
+  "n": 108,
+  "max_spread": 27,
+  "median_spread": 5,
+  "spread_ge10": 30,
+  "weak_downgraded": 1,
+  "zone_changed_vs_one_call": 11,
+  "transitions": {
+   "total": 11,
+   "by_average_only": 10,
+   "by_rule_only": 1,
+   "both_steps": 0,
+   "average_moved": 10,
+   "rule_moved": 1,
+   "moved_by_average_and_back_by_rule": 0
+  },
+  "explain_calls": 45,
+  "stopped_by_budget": false
+ },
+ "rows": [
+  {
+   "key": "ai9",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    35,
+    35,
+    35
+   ],
+   "mean": 35,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai10",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    72,
+    80,
+    72
+   ],
+   "mean": 74.7,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai11",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    35,
+    35,
+    40
+   ],
+   "mean": 36.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai13",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    62,
+    62,
+    55
+   ],
+   "mean": 59.7,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai14",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    30,
+    30,
+    30
+   ],
+   "mean": 30,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai16",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    62,
+    66,
+    62
+   ],
+   "mean": 63.3,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai18",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    22,
+    22,
+    30
+   ],
+   "mean": 24.7,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "ai21",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    22,
+    22,
+    22
+   ],
+   "mean": 22,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "ai24",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    72,
+    62,
+    72
+   ],
+   "mean": 68.7,
+   "zone": "high",
+   "distinct": 7,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai25",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    35,
+    30,
+    30
+   ],
+   "mean": 31.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai26",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    82,
+    82,
+    80
+   ],
+   "mean": 81.3,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai27",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    42,
+    40,
+    35
+   ],
+   "mean": 39,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai30",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    35,
+    35,
+    40
+   ],
+   "mean": 36.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai31",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    72,
+    66,
+    72
+   ],
+   "mean": 70,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai33",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    62,
+    62,
+    72
+   ],
+   "mean": 65.3,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai34",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    66,
+    62,
+    66
+   ],
+   "mean": 64.7,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai36",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    72,
+    72,
+    72
+   ],
+   "mean": 72,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai37",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    30,
+    30,
+    30
+   ],
+   "mean": 30,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai38",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    55,
+    62,
+    62
+   ],
+   "mean": 59.7,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai39",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    22,
+    40,
+    30
+   ],
+   "mean": 30.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "low",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai40",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    42,
+    30,
+    38
+   ],
+   "mean": 36.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai41",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    22,
+    22,
+    22
+   ],
+   "mean": 22,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "ai44",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    25,
+    22,
+    30
+   ],
+   "mean": 25.7,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "ai45",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    82,
+    72,
+    80
+   ],
+   "mean": 78,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai51",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    62,
+    80,
+    66
+   ],
+   "mean": 69.3,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai52",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    88,
+    88,
+    88
+   ],
+   "mean": 88,
+   "zone": "high",
+   "distinct": 7,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai56",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    72,
+    72,
+    66
+   ],
+   "mean": 70,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai58",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    66,
+    66,
+    72
+   ],
+   "mean": 68,
+   "zone": "mid",
+   "distinct": 0,
+   "z1": "high",
+   "zm": "high",
+   "zf": "mid"
+  },
+  {
+   "key": "ai62",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    62,
+    66,
+    62
+   ],
+   "mean": 63.3,
+   "zone": "high",
+   "distinct": 3,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai63",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    80,
+    80,
+    80
+   ],
+   "mean": 80,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai64",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    80,
+    82,
+    82
+   ],
+   "mean": 81.3,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai65",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    42,
+    40,
+    32
+   ],
+   "mean": 38,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai68",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    40,
+    35,
+    35
+   ],
+   "mean": 36.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai69",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    40,
+    40,
+    62
+   ],
+   "mean": 47.3,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai70",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    80,
+    80,
+    80
+   ],
+   "mean": 80,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai75",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    82,
+    85,
+    88
+   ],
+   "mean": 85,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai76",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    40,
+    40,
+    40
+   ],
+   "mean": 40,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai77",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    55,
+    66,
+    40
+   ],
+   "mean": 53.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "high",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai79",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    62,
+    62,
+    40
+   ],
+   "mean": 54.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "high",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai81",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    62,
+    62,
+    62
+   ],
+   "mean": 62,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai91",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    62,
+    72,
+    78
+   ],
+   "mean": 70.7,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai92",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    62,
+    66,
+    62
+   ],
+   "mean": 63.3,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai96",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    58,
+    62,
+    70
+   ],
+   "mean": 63.3,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai97",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    72,
+    72,
+    72
+   ],
+   "mean": 72,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai98",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    82,
+    72,
+    77
+   ],
+   "mean": 77,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai101",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    50,
+    35,
+    50
+   ],
+   "mean": 45,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai108",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    35,
+    40,
+    35
+   ],
+   "mean": 36.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai109",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    62,
+    62,
+    35
+   ],
+   "mean": 53,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "high",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai111",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    22,
+    22,
+    22
+   ],
+   "mean": 22,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "ai112",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    40,
+    40,
+    35
+   ],
+   "mean": 38.3,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai124",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    55,
+    42,
+    40
+   ],
+   "mean": 45.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "high",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai126",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    22,
+    30,
+    30
+   ],
+   "mean": 27.3,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "ai130",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    72,
+    77,
+    72
+   ],
+   "mean": 73.7,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai131",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    72,
+    80,
+    82
+   ],
+   "mean": 78,
+   "zone": "high",
+   "distinct": 7,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai132",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    82,
+    82,
+    82
+   ],
+   "mean": 82,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai133",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    72,
+    72,
+    72
+   ],
+   "mean": 72,
+   "zone": "high",
+   "distinct": 3,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai134",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    66,
+    62,
+    62
+   ],
+   "mean": 63.3,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai135",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    55,
+    35,
+    40
+   ],
+   "mean": 43.3,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "high",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai138",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    40,
+    50,
+    40
+   ],
+   "mean": 43.3,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai140",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    66,
+    72,
+    72
+   ],
+   "mean": 70,
+   "zone": "high",
+   "distinct": 3,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai154",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    30,
+    30,
+    35
+   ],
+   "mean": 31.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai155",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    30,
+    30,
+    35
+   ],
+   "mean": 31.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai156",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    40,
+    55,
+    55
+   ],
+   "mean": 50,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai157",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    62,
+    55,
+    62
+   ],
+   "mean": 59.7,
+   "zone": "high",
+   "distinct": 3,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai158",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    62,
+    72,
+    72
+   ],
+   "mean": 68.7,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai159",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    40,
+    30,
+    35
+   ],
+   "mean": 35,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai160",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    22,
+    22,
+    22
+   ],
+   "mean": 22,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "ai161",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    72,
+    72,
+    80
+   ],
+   "mean": 74.7,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai167",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    72,
+    72,
+    62
+   ],
+   "mean": 68.7,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai169",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    40,
+    42,
+    40
+   ],
+   "mean": 40.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "ai170",
+   "kind": "ai",
+   "prompt": "naive",
+   "scores": [
+    82,
+    82,
+    82
+   ],
+   "mean": 82,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "ai176",
+   "kind": "ai",
+   "prompt": "human",
+   "scores": [
+    82,
+    72,
+    72
+   ],
+   "mean": 75.3,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "p1059",
+   "kind": "editorial",
+   "scores": [
+    30,
+    22,
+    30
+   ],
+   "mean": 27.3,
+   "zone": "low",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p1055",
+   "kind": "editorial",
+   "scores": [
+    55,
+    72,
+    62
+   ],
+   "mean": 63,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "p1050",
+   "kind": "unclear",
+   "scores": [
+    22,
+    30,
+    22
+   ],
+   "mean": 24.7,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p1033",
+   "kind": "editorial",
+   "scores": [
+    22,
+    22,
+    25
+   ],
+   "mean": 23,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p1031",
+   "kind": "founder",
+   "scores": [
+    12,
+    15,
+    12
+   ],
+   "mean": 13,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p1029",
+   "kind": "editorial",
+   "scores": [
+    40,
+    40,
+    40
+   ],
+   "mean": 40,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p1022",
+   "kind": "founder",
+   "scores": [
+    8,
+    12,
+    12
+   ],
+   "mean": 10.7,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p1021",
+   "kind": "editorial",
+   "scores": [
+    30,
+    30,
+    30
+   ],
+   "mean": 30,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p1001",
+   "kind": "editorial",
+   "scores": [
+    62,
+    62,
+    62
+   ],
+   "mean": 62,
+   "zone": "high",
+   "distinct": 4,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "p997",
+   "kind": "founder",
+   "scores": [
+    12,
+    22,
+    12
+   ],
+   "mean": 15.3,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p986",
+   "kind": "editorial",
+   "scores": [
+    40,
+    35,
+    35
+   ],
+   "mean": 36.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p985",
+   "kind": "editorial",
+   "scores": [
+    72,
+    72,
+    72
+   ],
+   "mean": 72,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "p982",
+   "kind": "unclear",
+   "scores": [
+    35,
+    30,
+    22
+   ],
+   "mean": 29,
+   "zone": "low",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p976",
+   "kind": "editorial",
+   "scores": [
+    62,
+    55,
+    62
+   ],
+   "mean": 59.7,
+   "zone": "high",
+   "distinct": 3,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "p966",
+   "kind": "editorial",
+   "scores": [
+    30,
+    30,
+    30
+   ],
+   "mean": 30,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p963",
+   "kind": "editorial",
+   "scores": [
+    35,
+    62,
+    40
+   ],
+   "mean": 45.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p960",
+   "kind": "founder",
+   "scores": [
+    30,
+    22,
+    22
+   ],
+   "mean": 24.7,
+   "zone": "low",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p954",
+   "kind": "founder",
+   "scores": [
+    30,
+    30,
+    30
+   ],
+   "mean": 30,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p952",
+   "kind": "founder",
+   "scores": [
+    22,
+    22,
+    22
+   ],
+   "mean": 22,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p949",
+   "kind": "founder",
+   "scores": [
+    35,
+    62,
+    40
+   ],
+   "mean": 45.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p941",
+   "kind": "founder",
+   "scores": [
+    12,
+    18,
+    12
+   ],
+   "mean": 14,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p932",
+   "kind": "founder",
+   "scores": [
+    22,
+    22,
+    22
+   ],
+   "mean": 22,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p916",
+   "kind": "editorial",
+   "scores": [
+    62,
+    55,
+    62
+   ],
+   "mean": 59.7,
+   "zone": "high",
+   "distinct": 5,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "p910",
+   "kind": "founder",
+   "scores": [
+    12,
+    8,
+    8
+   ],
+   "mean": 9.3,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p906",
+   "kind": "founder",
+   "scores": [
+    12,
+    12,
+    8
+   ],
+   "mean": 10.7,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p905",
+   "kind": "editorial",
+   "scores": [
+    22,
+    30,
+    35
+   ],
+   "mean": 29,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p902",
+   "kind": "founder",
+   "scores": [
+    22,
+    22,
+    22
+   ],
+   "mean": 22,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p893",
+   "kind": "editorial",
+   "scores": [
+    62,
+    62,
+    62
+   ],
+   "mean": 62,
+   "zone": "high",
+   "distinct": 6,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  },
+  {
+   "key": "p892",
+   "kind": "editorial",
+   "scores": [
+    30,
+    30,
+    22
+   ],
+   "mean": 27.3,
+   "zone": "low",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p887",
+   "kind": "editorial",
+   "scores": [
+    40,
+    35,
+    35
+   ],
+   "mean": 36.7,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p883",
+   "kind": "founder",
+   "scores": [
+    12,
+    12,
+    12
+   ],
+   "mean": 12,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p877",
+   "kind": "unclear",
+   "scores": [
+    30,
+    30,
+    30
+   ],
+   "mean": 30,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p866",
+   "kind": "editorial",
+   "scores": [
+    22,
+    22,
+    30
+   ],
+   "mean": 24.7,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p865",
+   "kind": "editorial",
+   "scores": [
+    22,
+    22,
+    22
+   ],
+   "mean": 22,
+   "zone": "low",
+   "distinct": null,
+   "z1": "low",
+   "zm": "low",
+   "zf": "low"
+  },
+  {
+   "key": "p864",
+   "kind": "editorial",
+   "scores": [
+    30,
+    30,
+    30
+   ],
+   "mean": 30,
+   "zone": "mid",
+   "distinct": null,
+   "z1": "mid",
+   "zm": "mid",
+   "zf": "mid"
+  },
+  {
+   "key": "p863",
+   "kind": "unclear",
+   "scores": [
+    72,
+    72,
+    72
+   ],
+   "mean": 72,
+   "zone": "high",
+   "distinct": 3,
+   "z1": "high",
+   "zm": "high",
+   "zf": "high"
+  }
+ ],
+ "transitions": {
+  "total": [
+   "ai39",
+   "ai58",
+   "ai77",
+   "ai79",
+   "ai109",
+   "ai124",
+   "ai135",
+   "p1059",
+   "p982",
+   "p960",
+   "p892"
+  ],
+  "by_average_only": [
+   "ai39",
+   "ai77",
+   "ai79",
+   "ai109",
+   "ai124",
+   "ai135",
+   "p1059",
+   "p982",
+   "p960",
+   "p892"
+  ],
+  "by_rule_only": [
+   "ai58"
+  ],
+  "both_steps": [],
+  "average_moved": [
+   "ai39",
+   "ai77",
+   "ai79",
+   "ai109",
+   "ai124",
+   "ai135",
+   "p1059",
+   "p982",
+   "p960",
+   "p892"
+  ],
+  "rule_moved": [
+   "ai58"
+  ],
+  "moved_by_average_and_back_by_rule": []
+ }
+}
