@@ -102,6 +102,7 @@ function safeEdits(text, ctx = {}) {
     if (/(?:^|[^\p{L}])(?:не|ни|и|так|вот|то|как)\s+$/u.test(before)) continue; // «не очень», «и действительно»: смысл другой
     if (/^\s*[,—–-]/.test(after) || /^\s+ли(?![\p{L}])/iu.test(text.slice(b, b + 5))) continue; // «Действительно, …» — согласие, «действительно ли»
     if (/^\s+(?:до|с|со|по|на|в\s+течение)(?![\p{L}])/iu.test(text.slice(b, b + 16))) continue; // «действительно до 30 ноября»: краткое прилагательное, не усилитель
+    if (/^\s*(?:[.!?…;:)]|$)/u.test(text.slice(b, b + 3))) continue; // «Разрешение действительно.»: сказуемое в конце фразы, без него смысл пропадает
     if (insideQuotes(text, a)) continue;
     push({ start: a, end: b, ins: '', kind: 'AMP', del: m[0], show: '' });
   }

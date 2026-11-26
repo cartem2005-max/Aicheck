@@ -24,9 +24,9 @@ const PRICES = {
 
 const isMock = () => process.env.LLM_MOCK === '1';
 const budget = () => Number(process.env.LLM_BUDGET || 15);
-const OPENAI_BUDGET = 5; // отдельный лимит на ключ OpenAI (решение Артёма 25.11)
+const OPENAI_BUDGET = 5; // отдельный лимит на ключ OpenAI, $
 const isOpenAI = (m) => /^gpt-/.test(m);
-const OPENAI_ALLOWED = ['gpt-6-luna', 'gpt-6.1-terra', 'gpt-6.2-sol']; // Astra не берём — дорого (Артём 25.11)
+const OPENAI_ALLOWED = ['gpt-6-luna', 'gpt-6.1-terra', 'gpt-6.2-sol']; // Astra не берём, дорого
 
 function gatewayUrl() {
   if (process.env.KAN_LLM_URL) return process.env.KAN_LLM_URL.trim();
