@@ -19,7 +19,7 @@ module.exports = async function run(check) {
   let sd = {};
   const st = B.route(upd('/start'), sd, NOW);
   check('A: /start → route start, текст: Claude (Anthropic), пример, «или пришлите»', st.route === 'start' && /Claude/.test(st.reply) && /Anthropic/.test(st.reply) && /пример/.test(st.reply) && /Пришлите текст/.test(st.reply), st.reply);
-  check('бот: /help — справка со всеми командами', ['/start', '/subscribe', '/unsubscribe', '/stats', '/allow', '/disallow', '/help', 't.me/канал/123'].every((c) => B.HELP.includes(c)));
+  check('бот: /help — справка со всеми командами', ['/start', '/subscribe', '/unsubscribe', '/catalog', '/help', 't.me/канал/123'].every((c) => B.HELP.includes(c)) && !['/stats', '/allow', 'проверок в сутки'].some((c) => B.HELP.includes(c)));
   check('бот: /subscribe и /unsubscribe', B.route(upd('/subscribe'), sd, NOW).route === 'subscribe' && B.route(upd('/unsubscribe'), sd, NOW).route === 'unsubscribe');
   check('бот: неизвестная команда → справка', /Не знаю/.test(B.route(upd('/foo'), sd, NOW).reply));
   // копия владельцу: коротко кто, что и ответ бота; свои сообщения владельца не дублируем
